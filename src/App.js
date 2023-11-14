@@ -1,25 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import VirtualDataGrid from "./VirtualDataGrid/index";
+import { tableHeader, tableOptions, getUserData } from "./Data";
 
-function App() {
+// function App() {
+//   return (
+//     <VirtualDataGrid
+//       // containerHeight={400}
+//       buffer={30}
+//       numberOfRows={50}
+//       itemHeight={50}
+//       incomingData={getUserData(50000)}
+//       tableHeaders={tableHeader}
+//       incomingTableOptions={tableOptions}
+//       callExportCSV={false}
+//       onDataChange={(data) => {
+//         console.log(data);
+//       }}
+//     />
+//   );
+// }
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <VirtualDataGrid
+      // containerHeight={400}
+      buffer={30}
+      numberOfRows={50}
+      itemHeight={50} // Adjust as needed
+      incomingData={getUserData(5000)}
+      tableHeaders={tableHeader}
+      incomingTableOptions={tableOptions}
+      callExportCSV={false}
+      onDataChange={(data) => {
+        console.log(data);
+      }}
+    />
   );
-}
+};
 
 export default App;

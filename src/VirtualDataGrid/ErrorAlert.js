@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { IconButton, Typography, Box } from "@material-ui/core";
+import IconButton from "@material-ui/core/IconButton";
+import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import CancelIcon from "@material-ui/icons/Cancel";

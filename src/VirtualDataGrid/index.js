@@ -1,5 +1,6 @@
 import React, { useState, useRef, useCallback, useEffect } from "react";
-import { Box, Button } from "@material-ui/core";
+import Box from "@material-ui/core/Box";
+import Button from "@material-ui/core/Button";
 import DeleteIcon from "@material-ui/icons/Delete";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import TableHeader from "./TableHeader";
@@ -18,7 +19,7 @@ import { DataGridOptions, itemHeightConstant } from "./constants";
 import { CSVLink } from "react-csv";
 import debounce from "lodash.debounce";
 
-const VirtualTable = ({
+const VirtualDataGrid = ({
   itemHeight = itemHeightConstant,
   incomingData = [],
   incomingTableOptions,
@@ -32,6 +33,7 @@ const VirtualTable = ({
   onDataChange,
   containerHeight = null,
 }) => {
+  console.log("Virtual Table Renders");
   const [tableOptions, setTableOptions] = useState({});
   const viewportHeight = numberOfRows * itemHeight;
   const [data, setData] = useState([]);
@@ -324,4 +326,4 @@ const scrollBoxStyles = {
   },
 };
 
-export default VirtualTable;
+export default VirtualDataGrid;

@@ -1,5 +1,7 @@
 import React, { useEffect, useState, memo, useCallback } from "react";
-import { Box, Checkbox, Tooltip } from "@material-ui/core";
+import Box from "@material-ui/core/Box";
+import Checkbox from "@material-ui/core/Checkbox";
+import Tooltip from "@material-ui/core/Tooltip";
 import isEqual from "lodash.isequal";
 import TableCell from "./TableCell";
 import { subscribeToData, setSubscribedData } from "./Reactive/subscriber";

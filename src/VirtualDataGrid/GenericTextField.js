@@ -4,7 +4,8 @@ import {
   MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
-import { TextField, MenuItem } from "@material-ui/core";
+import TextField from "@material-ui/core/TextField";
+import MenuItem from "@material-ui/core/MenuItem";
 import { commonStyles } from "./styles";
 import { getColumnOrder } from "./utils";
 import Ajv from "ajv";
