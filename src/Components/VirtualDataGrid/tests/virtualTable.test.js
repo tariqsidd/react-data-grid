@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom";
 import { render, screen, fireEvent } from "@testing-library/react";
-import VirtualTable from "../index";
+import VirtualTable from "../../index";
 
 describe("VirtualTable", () => {
   const tableHeaders = [

@@ -1,4 +1,4 @@
-import Reactive from "./";
+import Reactive from "./index";
 
 const dataSharing = new Reactive();
 
