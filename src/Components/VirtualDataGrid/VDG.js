@@ -12,11 +12,10 @@ import {
     convertToHashMap,
     setColumnOrder,
     findIndexById,
-    errorIdentifier,
+    errorIdentifier, jsonToCSV, downloadCSV,
 } from "./utils";
 import { commonStyles } from "./styles";
 import { DataGridOptions, itemHeightConstant } from "./constants";
-import { CSVLink } from "react-csv";
 import debounce from "lodash.debounce";
 
 export const VirtualDataGrid = ({
@@ -94,7 +93,7 @@ export const VirtualDataGrid = ({
         data.length,
     ]);
 
-    const debounceScrollPos = debounce(scrollPos, 250);
+    const debounceScrollPos = debounce(scrollPos, 100);
 
     const scrollToRow = (rowIndex) => {
         const scrollPosition = rowIndex * itemHeight - itemHeight;
@@ -260,21 +259,14 @@ export const VirtualDataGrid = ({
                         color="primary"
                         className={classes.button}
                         onClick={() => {
-                            if (csvLinkRef.current) {
-                                csvLinkRef.current.link.click();
-                            }
+                            let csvData = jsonToCSV(data, tableHeaders);
+                            downloadCSV(csvData, 'myData.csv');
                         }}
                         startIcon={<GetAppIcon />}
                     >
                         Export CSV
                     </Button>
                 )}
-
-                <CSVLink
-                    data={prepareCSVData()}
-                    filename="table-data.csv"
-                    ref={csvLinkRef}
-                />
             </Box>
             {tableOptions.showErrorAlert && (
                 <ErrorAlert scrollToRow={scrollToRow} data={data} />

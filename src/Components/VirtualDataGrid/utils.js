@@ -101,3 +101,49 @@ export const errorIdentifier = (data) =>
         }))
       : []
   );
+
+export const jsonToCSV = (jsonData, tableHeader, columnDelimiter = ',', lineDelimiter = '\n') => {
+  let result, ctr;
+
+  if (!jsonData.length) {
+    return null;
+  }
+
+  // Extracting headerNames for CSV headers
+  const headers = tableHeader.map(header => header.headerName);
+  result = headers.join(columnDelimiter) + lineDelimiter;
+
+  // Mapping JSON data based on headerFieldNames
+  jsonData.forEach(item => {
+    ctr = 0;
+    tableHeader.forEach(header => {
+      if (ctr > 0) result += columnDelimiter;
+
+      result += item[header.headerFieldName] ? item[header.headerFieldName] : '';
+      ctr++;
+    });
+    result += lineDelimiter;
+  });
+
+  return result;
+}
+
+
+
+export const  downloadCSV = (csvData, filename = 'data.csv')=> {
+  let blob = new Blob([csvData], { type: 'text/csv;charset=utf-8;' });
+  let link = document.createElement("a");
+
+  if (navigator.msSaveBlob) { // For IE 10+
+    navigator.msSaveBlob(blob, filename);
+  } else {
+    let url = URL.createObjectURL(blob);
+    link.href = url;
+    link.style.visibility = 'hidden';
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+}
+

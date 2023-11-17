@@ -1,5 +1,5 @@
 {
-  "name": "rc-fe-core",
+  "name": "@dastgyr1/rc-fe-core",
   "version": "0.0.1",
   "description": "Frontend library",
   "main": "dist/index.js",
