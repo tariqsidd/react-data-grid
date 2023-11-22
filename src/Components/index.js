@@ -1,2 +1,2 @@
-export { VirtualDataGrid } from './VirtualDataGrid/VDG';
-export { MaterialTable } from './Matrial-Table';
+export { VirtualDataGrid } from "./VirtualDataGrid/VDG";
+export { MaterialTable } from "./Table";
