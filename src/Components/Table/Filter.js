@@ -72,7 +72,7 @@ export const Filter = ({
               renderValue={value !== "" ? undefined : () => null}
             >
               <MenuItem value="">
-                <em>None</em>
+                <em>All</em>
               </MenuItem>
               {options.map((option) => (
                 <MenuItem key={option.value} value={option.value}>

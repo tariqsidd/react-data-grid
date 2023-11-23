@@ -15,7 +15,6 @@ import {
 } from "@material-ui/core";
 import { addParamsToUrl } from "./utils";
 import { Filter } from "./Filter";
-import { tableOptions } from "../../Data";
 
 const initializeFilters = (columns) => {
   const initialFilters = {};
@@ -43,7 +42,9 @@ export const MaterialTable = ({
   const [selectAll, setSelectAll] = useState(false);
   const [filters, setFilters] = useState(initializeFilters(columns));
   const [pageSize, setPageSize] = useState(
-    options.rowsPerPageOptions ? options.rowsPerPageOptions[0] : 20
+    options.rowsPerPageOptions
+      ? options.rowsPerPageOptions[0]
+      : options.defaultPageSize
   );
 
   useEffect(() => {
@@ -136,73 +137,109 @@ export const MaterialTable = ({
             );
           })}
       </Box>
-
-      <Table className={classes.table}>
-        <TableHead>
-          <TableRow>
-            {options.selection && (
-              <TableCell
-                className={`${classes.headerCell} ${classes.checkboxCell}`}
-              >
-                <Checkbox checked={selectAll} onChange={handleSelectAll} />
-              </TableCell>
-            )}
-            {columns.map((column) => (
-              <TableCell key={column} className={classes.headerCell}>
-                {column.header}
-              </TableCell>
-            ))}
-          </TableRow>
-          <TableRow>
-            {options.selection && (
-              <TableCell
-                className={`${classes.filterCell} ${classes.checkboxCell}`}
-              />
-            )}
-            {columns.map((column) => (
-              <TableCell
-                key={column + "-filter"}
-                className={classes.filterCell}
-              >
-                <Filter
-                  type={column.filterType}
-                  value={filters[column.field]}
-                  onChange={(event) => handleFilterChange(event, column.field)}
-                  handleDateChange={handleDateChange}
-                  options={column?.options || []}
-                  label={column.header}
-                />
-              </TableCell>
-            ))}
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.id}>
+      <Box
+        style={{ overflowX: "auto", maxWidth: "100%" }}
+        sx={{
+          "&::-webkit-scrollbar": {
+            height: "8px",
+          },
+          "&::-webkit-scrollbar-track": {
+            backgroundColor: "#f1f1f1",
+            borderRadius: "6px",
+          },
+          "&::-webkit-scrollbar-thumb": {
+            backgroundColor: "#ccc",
+            borderRadius: "6px",
+          },
+        }}
+      >
+        <Table className={classes.table}>
+          <TableHead>
+            <TableRow>
               {options.selection && (
                 <TableCell
-                  className={`${classes.cell} ${classes.checkboxCell}`}
+                  className={`${classes.headerCell} ${classes.checkboxCell}`}
                 >
-                  <Checkbox
-                    checked={!!selectedRows[row.id]}
-                    onChange={() => handleSelectRow(row.id)}
-                    disabled={
-                      options.selectionProps
-                        ? options.selectionProps(row).disabled
-                        : false
-                    } // Add this line
-                  />
+                  <Checkbox checked={selectAll} onChange={handleSelectAll} />
                 </TableCell>
               )}
               {columns.map((column) => (
-                <TableCell key={column.field} className={classes.cell}>
-                  {row[column.field]}
+                <TableCell
+                  key={column}
+                  className={classes.headerCell}
+                  style={tableCellStyles.cellCustom(
+                    column.width,
+                    column.headerAlign
+                  )}
+                >
+                  {column.header}
                 </TableCell>
               ))}
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+            <TableRow>
+              {options.selection && (
+                <TableCell
+                  className={`${classes.filterCell} ${classes.checkboxCell}`}
+                />
+              )}
+              {columns.map((column) => (
+                <TableCell
+                  key={column + "-filter"}
+                  className={classes.filterCell}
+                  style={tableCellStyles.cellCustom(
+                    column.width,
+                    column.headerAlign
+                  )}
+                >
+                  <Filter
+                    type={column.filterType}
+                    value={filters[column.field]}
+                    onChange={(event) =>
+                      handleFilterChange(event, column.field)
+                    }
+                    handleDateChange={handleDateChange}
+                    options={column?.options || []}
+                    label={column.header}
+                  />
+                </TableCell>
+              ))}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {rows.map((row) => (
+              <TableRow key={row.id}>
+                {options.selection && (
+                  <TableCell
+                    className={`${classes.cell} ${classes.checkboxCell}`}
+                  >
+                    <Checkbox
+                      checked={!!selectedRows[row.id]}
+                      onChange={() => handleSelectRow(row.id)}
+                      disabled={
+                        options.selectionProps
+                          ? options.selectionProps(row).disabled
+                          : false
+                      }
+                    />
+                  </TableCell>
+                )}
+                {columns.map((column) => (
+                  <TableCell
+                    key={column.field}
+                    className={classes.cell}
+                    style={tableCellStyles.cellCustom(
+                      column.width,
+                      column.cellAlign
+                    )}
+                  >
+                    {column.render ? column.render(row) : row[column.field]}
+                  </TableCell>
+                ))}
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </Box>
       <Box
         style={{
           display: "flex",
@@ -243,8 +280,8 @@ export const MaterialTable = ({
 
 const useStyles = makeStyles((theme) => ({
   table: {
-    minWidth: 750, // This is the minimum width for the entire table
-    tableLayout: "fixed", // Fixed table layout
+    // minWidth: 750, // This is the minimum width for the entire table
+    tableLayout: "auto", // Fixed table layout
   },
   headerCell: {
     position: "sticky",
@@ -252,7 +289,6 @@ const useStyles = makeStyles((theme) => ({
     top: 0, // Top of the table container
     zIndex: 10, // Higher than the row z-index to stay on top
     background: theme.palette.background.paper, // Ensures the background matches
-    minWidth: "120px", // Minimum width for each header cell
     backgroundColor: "#ccc",
     fontWeight: "bold",
   },
@@ -260,22 +296,31 @@ const useStyles = makeStyles((theme) => ({
     position: "sticky",
     top: 56, // Height of the header cell, adjust accordingly
     zIndex: 5, // Lower than the header but above the rows
-    background: theme.palette.background.paper, // Ensures the background matches
+    background: theme.palette.background.paper,
     paddingTop: "12px", // Consistent padding
     paddingBottom: "12px",
-    minWidth: "120px", // Minimum width for each filter cell
   },
   cell: {
-    minWidth: "120px", // Minimum width for each cell
     paddingTop: "8px", // Consistent padding
     paddingBottom: "8px",
   },
   container: {
-    // overflowX: "auto", // Enable horizontal scrolling
-    maxHeight: "calc(100vh - 100px)", // Adjust the height accordingly
+    // maxHeight: "calc(100vh - 100px)", // Adjust the height accordingly
   },
   checkboxCell: {
-    minWidth: 60, // Reduce this to your desired width
+    minWidth: "60px", // Reduce this to your desired width
     width: 60, // Set a fixed width for checkbox cells
   },
 }));
+
+const tableCellStyles = {
+  cellCustom: (cellWidth, align) => {
+    return {
+      minWidth: "250px",
+      ...(align && {
+        textAlign: align,
+      }),
+      ...(cellWidth && { minWidth: cellWidth }),
+    };
+  },
+};
