@@ -1,6 +1,6 @@
 {
   "name": "@dastgyr1/rc-fe-core",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Frontend library",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
