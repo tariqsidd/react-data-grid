@@ -72,31 +72,31 @@ export default MyDataGrid;
 
 ## Props
 
-- itemHeight: The constant height of each item in the grid.
-- incomingData: The array of data to be displayed.
-- incomingTableOptions: Options for customizing the behavior of the data grid (See DataGridOptions for available options).
-- tableHeaders: An array defining the headers for the data grid.
-- buffer: The number of items to render outside the current viewport.
-- numberOfRows: The number of rows to display in the grid.
-- onSubmit: Callback function triggered on submit action.
-- onProceedAnyway: Callback function triggered on proceed action.
-- onSkip: Callback function triggered on skip action.
-- callExportCSV: Flag to trigger CSV file export functionality.
-- onDataChange: Callback function triggered on data change.
-- containerHeight: The fixed height of the container, set to null for dynamic height.
+- **itemHeight**: The constant height of each item in the grid.
+- **incomingData**: The array of data to be displayed.
+- **incomingTableOptions**: Options for customizing the behavior of the data grid (See DataGridOptions for available options).
+- **tableHeaders**: An array defining the headers for the data grid.
+- **buffer**: The number of items to render outside the current viewport.
+- **numberOfRows**: The number of rows to display in the grid.
+- **onSubmit**: Callback function triggered on submit action.
+- **onProceedAnyway**: Callback function triggered on proceed action.
+- **onSkip**: Callback function triggered on skip action.
+- **callExportCSV**: Flag to trigger CSV file export functionality.
+- **onDataChange**: Callback function triggered on data change.
+- **containerHeight**: The fixed height of the container, set to null for dynamic height.
 
 ### DataGrid Options
 
 The incomingTableOptions prop accepts an object with the following properties:
 
-- deleteRow: Enable/disable the ability to delete rows.
-- editing: Enable/disable editing mode for the data.
-- showErrors: Display errors in the grid.
-- showErrorAlert: Display an alert for errors.
-- showExportButton: Show/hide the export to CSV button.
-- showSubmitButton: Show/hide the submit button.
-- showProceedButton: Show/hide the proceed button.
-- showSkipButton: Show/hide the skip button.
+- **deleteRow**: Enable/disable the ability to delete rows.
+- **editing**: Enable/disable editing mode for the data.
+- **showErrors**: Display errors in the grid.
+- **showErrorAlert**: Display an alert for errors.
+- **showExportButton**: Show/hide the export to CSV button.
+- **showSubmitButton**: Show/hide the submit button.
+- **showProceedButton**: Show/hide the proceed button.
+- **showSkipButton**: Show/hide the skip button.
 
 ## Header
 
@@ -160,14 +160,14 @@ tableHeader = [
 
 ### Required
 
-- headerName: Name of the column Header
-- headerFieldName: Key of that particular field in data
-- headerCellType: Type of cell. Anything from this ["text", "date", "select", "number"]
+- **headerName**: Name of the column Header
+- **headerFieldName**: Key of that particular field in data
+- **headerCellType**: Type of cell. Anything from this ["text", "date", "select", "number"]
 
 ### Optional
 
-- headerSchema: Json Schema to validate the cell value. Make sure properties key matches the headerFieldName
-- headerOptions: Options for select dropdown
+- **headerSchema**: Json Schema to validate the cell value. Make sure properties key matches the headerFieldName
+- **headerOptions**: Options for select dropdown
 
 ```
 const cities = [
@@ -213,8 +213,8 @@ const data = [
 
 ### Required
 
-- indexId: A random unique id generated to help with virtualisation of big data in the grid
+- **indexId**: A random unique id generated to help with virtualisation of big data in the grid
 
 ### Optional
 
-- error: This helps to highlight the error in data grid. It will always be an object containing key-value pair with key being headerFieldName and value will be the error message for that particular headerFieldName.
+- **error**: This helps to highlight the error in data grid. It will always be an object containing key-value pair with key being headerFieldName and value will be the error message for that particular headerFieldName.
