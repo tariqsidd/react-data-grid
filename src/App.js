@@ -45,7 +45,7 @@ const columns = [
         }}
       />
     ),
-    headerAlign: "left",
+    headerAlign: "center",
     cellAlign: "center",
   },
   { field: "date", header: "Date", filterType: "dateSelect" },

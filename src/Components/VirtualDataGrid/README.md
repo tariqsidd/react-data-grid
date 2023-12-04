@@ -85,7 +85,7 @@ export default MyDataGrid;
 - onDataChange: Callback function triggered on data change.
 - containerHeight: The fixed height of the container, set to null for dynamic height.
 
-## DataGrid Options
+### DataGrid Options
 
 The incomingTableOptions prop accepts an object with the following properties:
 
