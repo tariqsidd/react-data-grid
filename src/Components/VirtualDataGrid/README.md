@@ -8,11 +8,9 @@ The header and data format needs to follow a coherent pattern.
 
 ## Usage
 
-import VirtualDataGrid from 'virtual-data-grid';
-
-// ...
-
 ```
+import { VirtualDataGrid } from "@dastgyr1/rc-fe-core";
+
 const MyDataGrid = () => {
   const DataGridOptions = {
     deleteRow: true,
