@@ -50,6 +50,8 @@ export default MyMaterialTable;
 
 ## Props
 
+- **appTheme**: To apply the theme of your project on the component.
+- **maxHeight**: Height of the component.
 - **data**: The array of data to be displayed.
 - **columns**: An array defining the structure and properties of each column.
 - **cellStyles**: To pass styling to all Table Cells.
@@ -62,6 +64,7 @@ export default MyMaterialTable;
 - **isNextPage**: Enable/Disable the next page icon
 - **onRowSelection**: Callback function triggered when the rows selected and returns the selected rows.
 - **onRowClick**: Callback function triggered when row clicked
+- **selectedRow**: Object containg selected rows
 
 ### Table Options
 
